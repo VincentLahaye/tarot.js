@@ -6,7 +6,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('Tarotjs', ['ionic', 'Tarotjs.controllers'])
+angular.module('Tarotjs', ['ionic', 'Tarotjs.app.controller', 'Tarotjs.app.games.controller'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,51 +18,22 @@ angular.module('Tarotjs', ['ionic', 'Tarotjs.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-
     .state('app', {
       url: '/app',
       abstract: true,
-      templateUrl: 'templates/menu.html',
+      templateUrl: 'components/menu/menu.html',
       controller: 'AppCtrl'
     })
-
-    .state('app.search', {
-      url: '/search',
+    .state('app.games', {
+      url: '/games',
       views: {
         'menuContent' :{
-          templateUrl: 'templates/search.html'
-        }
-      }
-    })
-
-    .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-    .state('app.single', {
-      url: '/playlists/:playlistId',
-      views: {
-        'menuContent' :{
-          templateUrl: 'templates/playlist.html',
-          controller: 'PlaylistCtrl'
+          templateUrl: 'game/games.html',
+          controller: 'GamesCtrl'
         }
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/games');
 });
 

@@ -21,22 +21,20 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: 'app',
-      scripts: 'scripts',
-      styles: 'styles',
       images: 'images'
     },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'],
+        files: ['<%= yeoman.app %>/**/*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: true
         }
       },
       styles: {
-        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.css'],
+        files: ['<%= yeoman.app %>/**/*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
@@ -49,7 +47,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/*.html',
           '<%= yeoman.app %>/templates/**/*.html',
-          '.tmp/<%= yeoman.styles %>/**/*.css',
+          '.tmp/styles/**/*.css',
           '<%= yeoman.app %>/<%= yeoman.images %>/**/*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -60,7 +58,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -94,7 +92,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'
+        '<%= yeoman.app %>/**/*.js'
       ],
       test: {
         options: {
@@ -126,9 +124,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/<%= yeoman.styles %>/',
+          cwd: '.tmp/styles/',
           src: '{,*/}*.css',
-          dest: '.tmp/<%= yeoman.styles %>/'
+          dest: '.tmp/styles/'
         }]
       }
     },
@@ -165,7 +163,7 @@ module.exports = function (grunt) {
     // Performs rewrites based on the useminPrepare configuration
     usemin: {
       html: ['www/**/*.html'],
-      css: ['www/<%= yeoman.styles %>/**/*.css'],
+      css: ['www/styles/**/*.css'],
       options: {
         assetsDirs: ['www']
       }
@@ -219,8 +217,8 @@ module.exports = function (grunt) {
       },
       styles: {
         expand: true,
-        cwd: '<%= yeoman.app %>/<%= yeoman.styles %>',
-        dest: '.tmp/<%= yeoman.styles %>/',
+        cwd: '<%= yeoman.app %>',
+        dest: '.tmp/styles/',
         src: '{,*/}*.css'
       },
       fonts: {
@@ -232,7 +230,7 @@ module.exports = function (grunt) {
       vendor: {
         expand: true,
         cwd: '<%= yeoman.app %>/vendor',
-        dest: '.tmp/<%= yeoman.styles %>/',
+        dest: '.tmp/styles/',
         src: '{,*/}*.css'
       },
       all: {
@@ -261,32 +259,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       'www/<%= yeoman.styles %>/main.css': [
-    //         '.tmp/<%= yeoman.styles %>/**/*.css',
-    //         '<%= yeoman.app %>/<%= yeoman.styles %>/**/*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       'www/<%= yeoman.scripts %>/scripts.js': [
-    //         'www/<%= yeoman.scripts %>/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
-
     // Test settings
     // These will override any config options in karma.conf.js if you create it.
     karma: {
@@ -301,7 +273,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/bower_components/ionic/release/js/ionic.js',
           '<%= yeoman.app %>/bower_components/ionic/release/js/ionic-angular.js',
           '<%= yeoman.app %>/bower_components/angular-mocks/angular-mocks.js',
-          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js',
+          '<%= yeoman.app %>/**/*.js',
           'test/mock/**/*.js',
           'test/spec/**/*.js'
         ],
@@ -311,7 +283,7 @@ module.exports = function (grunt) {
         singleRun: false,
         preprocessors: {
           // Update this if you change the yeoman config path
-          'app/scripts/**/*.js': ['coverage']
+          'app/**/*.js': ['coverage']
         },
         coverageReporter: {
           reporters: [
@@ -339,9 +311,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/<%= yeoman.scripts %>',
+          cwd: '.tmp/concat/scripts',
           src: '*.js',
-          dest: '.tmp/concat/<%= yeoman.scripts %>'
+          dest: '.tmp/concat/scripts'
         }]
       }
     }
@@ -407,7 +379,7 @@ module.exports = function (grunt) {
   // we don't have to run the karma test server as part of `grunt serve`
   grunt.registerTask('watch:karma', function () {
     var karma = {
-      files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', 'test/spec/**/*.js'],
+      files: ['<%= yeoman.app %>/**/*.js', 'test/spec/**/*.js'],
       tasks: ['newer:jshint:test', 'karma:unit:run']
     };
     grunt.config.set('watch', karma);
